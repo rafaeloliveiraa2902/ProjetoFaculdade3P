@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Cerrado em Lista — Dados ambientais de Goiás</title>
+  <meta name="description" content="Explore os dados ambientais de Goiás em uma listagem com busca, filtros e detalhes.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2318322d'/%3E%3Cpath d='M8 10h16M8 16h12M8 22h8' stroke='%23d4ed88' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="readability.css">
+  <script defer src="data.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Pular para a listagem</a>
+  <aside class="sidebar">
+    <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">≡</span><span>Cerrado<span class="brand-small">EM LISTA</span></span></a>
+    <div class="workspace"><span class="state-icon">GO</span><div>Dados ambientais<small>Goiás, Brasil</small></div></div>
+    <nav aria-label="Bases de dados" id="navigation"></nav>
+    <div class="sidebar-note"><span class="small-label">ACERVO DISPONÍVEL</span><strong id="archive-count">8 bases de dados</strong><p>Informações do arquivo enviado, reunidas para consulta.</p></div>
+  </aside>
+  <div class="workspace-main">
+    <header class="topbar"><span>Acervo ambiental <span class="crumb">/</span> <strong>Explorar dados</strong></span><span class="top-tag">GOIÁS · GO</span></header>
+    <main id="main">
+      <div class="page-heading"><div><p class="eyebrow">EXPLORADOR DE DADOS</p><h1 id="title">Queimadas em 2026</h1><p class="subtitle" id="subtitle">Registros de janeiro a agosto disponíveis na base enviada.</p></div><span class="view-label"><span aria-hidden="true">☷</span> Visualização em lista</span></div>
+      <section class="stats" aria-label="Resumo dos resultados filtrados">
+        <div class="stat"><span id="stat1-label">Registros encontrados</span><strong id="stat1">—</strong><small id="stat1-note">Na seleção atual</small></div>
+        <div class="stat"><span id="stat2-label">Municípios na seleção</span><strong id="stat2">—</strong><small id="stat2-note">Com registros nesta base</small></div>
+        <div class="stat"><span id="stat3-label">Área dos registros</span><strong id="stat3">—</strong><small id="stat3-note">Soma das áreas informadas, em hectares</small></div>
+      </section>
+      <section class="list-panel" aria-labelledby="list-heading">
+        <div class="panel-heading"><div><h2 id="list-heading">Lista de registros</h2><span id="result-count" aria-live="polite"></span></div><button class="text-button" id="reset">Limpar filtros</button></div>
+        <div class="filters">
+          <div class="search-wrap"><span aria-hidden="true">⌕</span><input type="search" id="search" aria-label="Buscar na base selecionada" placeholder="Buscar município, área ou código…"></div>
+          <label><span id="filter-label">Município</span><select id="filter"></select></label>
+          <label><span>Ordenar por</span><select id="sort"><option value="name">Nome · A–Z</option><option value="area-desc">Maior área</option><option value="area-asc">Menor área</option><option value="recent">Mais recentes</option></select></label>
+        </div>
+        <div class="table-scroll"><table><thead><tr><th id="col-name">Município / área</th><th id="col-type">Classificação</th><th id="col-date">Período</th><th class="numeric" id="col-value">Área (ha)</th><th><span class="sr-only">Detalhes</span></th></tr></thead><tbody id="rows"></tbody></table></div>
+        <div class="empty" id="empty" hidden><strong>Nenhum registro encontrado</strong><p>Tente outro termo ou limpe os filtros para consultar toda a base.</p><button id="empty-reset">Limpar filtros</button></div>
+        <footer class="pagination"><span id="page-summary" aria-live="polite"></span><div><label class="page-size">Por página <select id="page-size"><option>8</option><option>15</option><option>30</option></select></label><button id="previous" aria-label="Página anterior">‹</button><span id="page-number"></span><button id="next" aria-label="Próxima página">›</button></div></footer>
+      </section>
+      <div class="source-note"><span aria-hidden="true">ⓘ</span><p id="source-note"></p></div>
+      <footer class="page-footer"><span>CERRADO EM LISTA</span><span>Consulta aos dados fornecidos · Sem atualização automática</span></footer>
+    </main>
+  </div>
+  <dialog id="detail" aria-labelledby="detail-title"><div class="dialog-heading"><span class="eyebrow">DETALHES DO REGISTRO</span><button id="close-detail" aria-label="Fechar detalhes">×</button></div><h2 id="detail-title"></h2><p id="detail-source"></p><dl id="detail-fields"></dl><p class="dialog-note">Campos descritivos da base original. Geometria não exibida nesta consulta.</p></dialog>
+  <noscript>Ative o JavaScript para consultar os registros e utilizar os filtros.</noscript>
+</body>
+</html>

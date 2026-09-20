@@ -1,0 +1,8 @@
+/* Readable data and controls at regular and enlarged text sizes. */
+td,input,select,.filters label>span,.stat>span,.text-button{font-size:14px}
+.record-title{font-size:16px}
+.record-sub,.badge,th,.stat>small,.source-note p,.page-size,.pagination,.subtitle,.view-label,#result-count{font-size:12px}
+.subtitle{font-size:14px}
+.page-footer,.nav-group,.small-label{font-size:12px}
+.nav-group{letter-spacing:1px}
+@media(max-width:800px){td,input,select,.filters label>span,.stat>span,.text-button{font-size:14px}.record-title{font-size:16px}.stat>small{font-size:12px}.stat>strong{font-size:22px}.stat{padding:15px 12px}.stat:first-child{padding-top:13px}.page-heading{margin-bottom:18px}.eyebrow{font-size:12px}.nav-item{font-size:14px}}
