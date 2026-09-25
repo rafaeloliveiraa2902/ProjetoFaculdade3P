@@ -6,7 +6,7 @@
   <meta name="description" content="Explore os dados ambientais de Goiás em uma listagem com busca, filtros e detalhes.">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2318322d'/%3E%3Cpath d='M8 10h16M8 16h12M8 22h8' stroke='%23d4ed88' stroke-width='3'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="readability.css">
-  <script defer src="data.js"></script><script defer src="app.js"></script>
+  <script defer src="data.js"></script><script defer src="impact-data.js"></script><script defer src="app.js"></script><script defer src="impact.js"></script>
 </head>
 <body>
   <a class="skip" href="#main">Pular para a listagem</a>
@@ -24,6 +24,16 @@
         <div class="stat"><span id="stat1-label">Registros encontrados</span><strong id="stat1">—</strong><small id="stat1-note">Na seleção atual</small></div>
         <div class="stat"><span id="stat2-label">Municípios na seleção</span><strong id="stat2">—</strong><small id="stat2-note">Com registros nesta base</small></div>
         <div class="stat"><span id="stat3-label">Área dos registros</span><strong id="stat3">—</strong><small id="stat3-note">Soma das áreas informadas, em hectares</small></div>
+      </section>
+      <section class="impact-panel" aria-labelledby="impact-heading">
+        <div class="impact-heading"><div><p class="eyebrow">ÁREA DE PRESERVAÇÃO</p><h2 id="impact-heading">Quanto da unidade foi atingido?</h2></div><span class="impact-scope">30 unidades com limites disponíveis</span></div>
+        <div class="impact-controls">
+          <label for="impact-unit">Unidade de conservação<select id="impact-unit"></select></label>
+          <label for="impact-period">Período<select id="impact-period"><option value="2025">2025</option><option value="2026" selected>2026 · janeiro a agosto</option></select></label>
+          <label for="impact-metric">Ocorrência<select id="impact-metric"><option value="fire">Queimadas</option><option value="deforestation">Desmatamento</option><option value="combined">Queimadas ou desmatamento</option></select></label>
+        </div>
+        <div id="impact-result" aria-live="polite"></div>
+        <details class="impact-method"><summary>Como o percentual é calculado</summary><p>Área atingida dentro do limite da unidade ÷ área total da unidade × 100. As áreas são calculadas a partir dos polígonos fornecidos, usando uma projeção equivalente. Sobreposições entre registros são contadas uma única vez. Na opção conjunta, a mesma área queimada e desmatada também é contada apenas uma vez.</p><p>O indicador considera o período e a unidade escolhidos acima, independentemente dos filtros da lista abaixo. Zero significa ausência de interseção nos registros fornecidos, não comprovação de ausência de impacto. Queimadas não equivalem necessariamente à perda permanente de vegetação. Os totais geográficos podem diferir dos valores cadastrais.</p><p>Fontes: limites das unidades estaduais e parques nacionais; queimadas de 2025 e janeiro–agosto de 2026; PRODES de 2025. Não há base de desmatamento de 2026 neste arquivo.</p></details>
       </section>
       <section class="list-panel" aria-labelledby="list-heading">
         <div class="panel-heading"><div><h2 id="list-heading">Lista de registros</h2><span id="result-count" aria-live="polite"></span></div><button class="text-button" id="reset">Limpar filtros</button></div>
