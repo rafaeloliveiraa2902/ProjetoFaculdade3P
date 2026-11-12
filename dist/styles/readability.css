@@ -1,4 +1,18 @@
 /* Readable data and controls at regular and enlarged text sizes. */
+[hidden]{display:none!important}
+.monitoring-list{list-style:none;padding:0;margin:20px 0}
+.monitoring-row{display:flex;gap:16px;padding:22px 0;border-top:1px solid #e4eae3}
+.monitoring-rank{font-variant-numeric:tabular-nums;color:#748478;font-size:14px;min-width:25px;padding-top:3px}
+.monitoring-unit{flex:1;min-width:0}
+.monitoring-unit-heading{display:flex;justify-content:space-between;align-items:start;gap:22px;margin-bottom:12px}
+.monitoring-unit-heading h3{font-size:16px;line-height:1.5;margin:0 0 4px;font-weight:600}
+.monitoring-sphere{font-size:12px;color:#617565}
+.monitoring-percent{white-space:nowrap;font-size:22px;color:#863c18;font-variant-numeric:tabular-nums}
+.monitoring-area{font-size:13px;line-height:1.6;color:#607366;margin:8px 0 0}
+.monitoring-period{font-size:13px;line-height:1.6;color:#607366;margin:0}
+.impact-panel .impact-controls{grid-template-columns:minmax(180px,260px) 1fr;align-items:end}
+.impact-panel .impact-controls>label:first-child{grid-column:auto}
+@media(max-width:650px){.impact-panel .impact-controls{grid-template-columns:1fr}.monitoring-unit-heading{gap:12px}.monitoring-percent{font-size:19px}.monitoring-row{gap:9px}.monitoring-rank{min-width:20px}.monitoring-unit-heading h3{font-size:15px}}
 .impact-panel{background:#fff;border:1px solid #dfe7e1;border-radius:11px;padding:23px;margin-bottom:27px}
 .impact-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px}
 .impact-heading .eyebrow{font-size:12px;margin-bottom:7px}

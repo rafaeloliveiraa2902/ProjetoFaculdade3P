@@ -2,3 +2,6 @@
 *.zip
 node_modules/
 __pycache__/
+
+.venv/
+*.pyc

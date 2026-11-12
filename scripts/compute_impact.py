@@ -3,19 +3,15 @@ import csv
 import hashlib
 import io
 import json
-from pathlib import Path
-import sys
 import zipfile
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / '.sites-runtime' / 'geo'))
+from source_data import arguments
 from pyproj import Transformer
 from shapely import STRtree, make_valid, union_all, wkt
 from shapely.geometry import GeometryCollection
 from shapely.ops import transform
 
 csv.field_size_limit(50_000_000)
-SOURCE = Path(r'C:\Users\NoteLenovo\Downloads\files (1).zip')
 PROJECTION = '+proj=laea +lat_0=-15 +lon_0=-49 +datum=WGS84 +units=m +no_defs'
 PROJECT = Transformer.from_crs('EPSG:4326', PROJECTION, always_xy=True).transform
 
@@ -34,6 +30,7 @@ def measure(boundary, affected):
     return {'areaHa': area, 'percent': min(100, max(0, ratio))}
 
 def main():
+    args = arguments(__doc__)
     repairs = {}
     def geometry(row, source):
         geom = wkt.loads(row['poligono_wkt'])
@@ -47,7 +44,7 @@ def main():
         projected = transform(PROJECT, geom)
         return make_valid(projected) if not projected.is_valid else projected
 
-    with zipfile.ZipFile(SOURCE) as outer:
+    with zipfile.ZipFile(args.source) as outer:
         with zipfile.ZipFile(io.BytesIO(outer.read('csv_banco_de_dados.zip'))) as source:
             def read(key):
                 return list(csv.DictReader(io.StringIO(source.read(f'csv_banco_de_dados/{key}.csv').decode('utf-8-sig'))))
@@ -81,8 +78,9 @@ def main():
                             '2026': {'fire':measure(boundary,fire26), 'deforestation':None, 'combined':None}
                         }, 'intersectingRecords':counts
                     })
-            output = {'units':units,'method':{'inputCRS':'EPSG:4326','areaCRS':PROJECTION,'formula':'100 * area(union(events) intersect unit) / area(unit)','sourceSha256':hashlib.sha256(SOURCE.read_bytes()).hexdigest(),'repairedGeometries':repairs,'coverage':'30 conservation unit boundaries supplied in CSV; no 2026 deforestation dataset'}}
-            (ROOT/'dist/impact-data.js').write_text('window.IMPACT = '+json.dumps(output,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')+';',encoding='utf8')
+            output = {'units':units,'method':{'inputCRS':'EPSG:4326','areaCRS':PROJECTION,'formula':'100 * area(union(events) intersect unit) / area(unit)','sourceSha256':hashlib.sha256(args.source.read_bytes()).hexdigest(),'repairedGeometries':repairs,'coverage':'30 conservation unit boundaries supplied in CSV; no 2026 deforestation dataset'}}
+            args.output_dir.mkdir(parents=True, exist_ok=True)
+            (args.output_dir/'impact-data.js').write_text('window.IMPACT = '+json.dumps(output,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')+';',encoding='utf8')
             print(json.dumps({'units':len(units),'repairs':repairs,'sample':next(u for u in units if 'VEADEIROS' in u['name'])},ensure_ascii=True),flush=True)
 
 if __name__ == '__main__':

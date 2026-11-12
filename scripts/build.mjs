@@ -1,0 +1,14 @@
+import {cp, mkdir, access, readFile} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
+const root = fileURLToPath(new URL('../', import.meta.url));
+const destination = path.join(root, 'dist');
+for (const file of ['data.js', 'impact-data.js', 'map/boundaries.geojson', 'map/queimadas_2025.geojson', 'map/queimadas_2026_jan_ago.geojson', 'map/desmatamento_prodes_2025.geojson']) await access(path.join(root, 'data/generated', file));
+const metadata = JSON.parse(await readFile(path.join(root, 'data/generated/map/metadata.json'), 'utf8'));
+for (const key of Object.keys(metadata.counts)) await access(path.join(root, 'data/generated/map', `${key}.geojson`));
+await mkdir(destination, {recursive: true});
+await cp(path.join(root, 'src'), destination, {recursive: true});
+await cp(path.join(root, 'data/generated'), path.join(destination, 'data'), {recursive: true});
+await cp(path.join(root, 'node_modules/leaflet/dist'), path.join(destination, 'vendor/leaflet'), {recursive: true});
+await cp(path.join(root, 'node_modules/leaflet/LICENSE'), path.join(destination, 'vendor/leaflet/LICENSE'));
+console.log('Painel gerado em dist/. Sirva essa pasta por HTTP.');

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Cerrado em Lista — Dados ambientais de Goiás</title>
+  <meta name="description" content="Explore os dados ambientais de Goiás em uma listagem com busca, filtros e detalhes.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2318322d'/%3E%3Cpath d='M8 10h16M8 16h12M8 22h8' stroke='%23d4ed88' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css"><link rel="stylesheet" href="styles/styles.css"><link rel="stylesheet" href="styles/readability.css"><link rel="stylesheet" href="styles/map.css">
+  <script defer src="data/data.js"></script><script defer src="data/impact-data.js"></script><script defer src="vendor/leaflet/leaflet.js"></script><script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Pular para a listagem</a>
+  <aside class="sidebar">
+    <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">≡</span><span>Cerrado<span class="brand-small">EM LISTA</span></span></a>
+    <div class="workspace"><span class="state-icon">GO</span><div>Dados ambientais<small>Goiás, Brasil</small></div></div>
+    <nav aria-label="Bases de dados" id="navigation"></nav>
+    <div class="sidebar-note"><span class="small-label">ACERVO DISPONÍVEL</span><strong id="archive-count">8 bases tabulares</strong><p>Ciclo 2: PRODES e DETER atualizados; queimadas e cadastros anteriores preservados.</p></div>
+  </aside>
+  <div class="workspace-main">
+    <header class="topbar"><span>Acervo ambiental <span class="crumb">/</span> <strong>Explorar dados</strong></span><span class="top-tag">GOIÁS · GO</span></header>
+    <main id="main">
+      <div class="page-heading"><div><p class="eyebrow">EXPLORADOR DE DADOS</p><h1 id="title">Monitoramento</h1><p class="subtitle" id="subtitle">Todas as unidades, do maior para o menor percentual de área atingida.</p></div><span class="view-label"><span aria-hidden="true">☷</span> Mapa e listagens</span></div>
+      <section class="stats" aria-label="Resumo dos resultados filtrados" hidden>
+        <div class="stat"><span id="stat1-label">Registros encontrados</span><strong id="stat1">—</strong><small id="stat1-note">Na seleção atual</small></div>
+        <div class="stat"><span id="stat2-label">Municípios na seleção</span><strong id="stat2">—</strong><small id="stat2-note">Com registros nesta base</small></div>
+        <div class="stat"><span id="stat3-label">Área dos registros</span><strong id="stat3">—</strong><small id="stat3-note">Soma das áreas informadas, em hectares</small></div>
+      </section>
+      <section class="impact-panel" aria-labelledby="impact-heading">
+        <div class="map-heading"><div><p class="eyebrow">TERRITÓRIO E OCORRÊNCIAS</p><h2>Mapa ambiental de Goiás</h2><p>Explore os polígonos e localize as unidades da tabela.</p></div><button id="map-reset" type="button">Ver Goiás inteiro</button></div>
+        <div class="map-toolbar">
+          <label for="fire-year">Período das queimadas<select id="fire-year"><option value="2026">Janeiro a agosto de 2026</option><option value="2025">2025 · ano completo</option></select></label>
+          <label for="loss-year">Período do desmatamento<select id="loss-year"><option value="2026">PRODES · 2026</option></select></label>
+          <label for="deter-year">Período dos alertas<select id="deter-year"><option value="2026">DETER · 2026</option></select></label>
+          <fieldset class="map-layers"><legend>Camadas visíveis</legend>
+            <label><input id="layer-fire" type="checkbox" checked><span class="legend-swatch fire"></span>Queimadas</label>
+            <label><input id="layer-loss" type="checkbox" checked><span class="legend-swatch loss"></span>Desmatamento PRODES</label>
+            <label><input id="layer-deter" type="checkbox"><span class="legend-swatch deter"></span>Alertas DETER</label>
+            <label><input id="layer-units" type="checkbox" checked><span class="legend-swatch units"></span>UCs e parques</label>
+            <label><input id="layer-cities" type="checkbox">Municípios</label>
+          </fieldset>
+        </div>
+        <div id="environment-map" role="region" aria-label="Mapa interativo de Goiás com queimadas, desmatamento e unidades de conservação" aria-busy="true"></div>
+        <div class="map-feedback"><p id="map-status" role="status">Carregando mapa…</p><button id="map-retry" type="button" hidden>Tentar novamente</button><p id="map-selection" aria-live="polite">Selecione uma unidade no mapa ou na tabela.</p></div>
+        <p class="map-note">Ciclo 2: série PRODES e alertas DETER do acervo enviado, filtrados para Goiás. DETER é uma camada de alertas, separada do ranking PRODES. Queimadas (2025 e jan–ago/2026), limites e cadastros são da base anterior. Os períodos e produtos não são diretamente comparáveis; classes PRODES até 2012 não representam necessariamente intervalos anuais. Contorno estadual derivado dos municípios. Polígonos simplificados apenas para exibição.</p>
+        <div class="impact-heading"><div><p class="eyebrow">ÁREAS DE PRESERVAÇÃO</p><h2 id="impact-heading">Unidades por percentual atingido</h2></div><span class="impact-scope" id="impact-count">30 unidades com limites disponíveis</span></div>
+        <div class="impact-controls">
+          <label for="impact-metric">Ocorrência<select id="impact-metric"><option value="fire">Queimadas</option><option value="deforestation">Desmatamento</option></select></label>
+          <label for="impact-order">Ordenar unidades por<select id="impact-order"><option value="areaHa">Maior área atingida (ha)</option><option value="percent">Maior percentual atingido (%)</option></select></label><p class="monitoring-period" id="monitoring-period" aria-live="polite"></p>
+        </div>
+        <p class="ranking-note">A tabela considera todas as unidades, independentemente das camadas visíveis e do enquadramento do mapa. Clique no nome para localizar.</p><div class="table-scroll impact-table-wrap" tabindex="0" role="region" aria-label="Tabela de unidades; role horizontalmente para consultar todas as colunas"><table class="impact-table"><caption class="sr-only">Ranking de unidades por área ou percentual atingido</caption><thead><tr><th scope="col">Posição</th><th scope="col">Unidade de conservação</th><th scope="col" class="numeric">Área atingida (ha)</th><th scope="col" class="numeric">Atingido (%)</th><th scope="col" class="numeric">Área da unidade (ha)</th></tr></thead><tbody id="impact-result"></tbody></table></div>
+        <details class="impact-method"><summary>Como o percentual é calculado</summary><p>Área atingida dentro do limite da unidade ÷ área total da unidade × 100. As áreas são calculadas a partir dos polígonos fornecidos, usando uma projeção equivalente. Sobreposições entre registros são contadas uma única vez.</p><p>São listadas todas as unidades com limites disponíveis, inclusive aquelas sem interseção identificada. A ordem é decrescente por hectares ou percentual atingido, conforme a seleção, com desempate pelo nome. Zero significa ausência de interseção nos registros fornecidos, não comprovação de ausência de impacto. Queimadas não equivalem necessariamente à perda permanente de vegetação. Os totais geográficos podem diferir dos valores cadastrais.</p><p>Queimadas mantêm os períodos da base anterior. O ranking de desmatamento acompanha o período PRODES selecionado e usa somente polígonos do novo acervo recortados a Goiás, com denominador na área integral da unidade. Ano PRODES/classe de mapeamento não equivale necessariamente ao ano civil. Alertas DETER não entram nesse cálculo. A soma dos polígonos não é a taxa oficial de desmatamento do INPE.</p></details>
+      </section>
+      <section class="list-panel" aria-labelledby="list-heading" hidden>
+        <div class="panel-heading"><div><h2 id="list-heading">Lista de registros</h2><span id="result-count" aria-live="polite"></span></div><button class="text-button" id="reset">Limpar filtros</button></div>
+        <div class="filters">
+          <div class="search-wrap"><span aria-hidden="true">⌕</span><input type="search" id="search" aria-label="Buscar na base selecionada" placeholder="Buscar município, área ou código…"></div>
+          <label><span id="filter-label">Município</span><select id="filter"></select></label>
+          <label><span>Ordenar por</span><select id="sort"><option value="name">Nome · A–Z</option><option value="area-desc">Maior área</option><option value="area-asc">Menor área</option><option value="recent">Mais recentes</option></select></label>
+        </div>
+        <div class="table-scroll"><table><thead><tr><th id="col-name">Município / área</th><th id="col-type">Classificação</th><th id="col-date">Período</th><th class="numeric" id="col-value">Área (ha)</th><th><span class="sr-only">Detalhes</span></th></tr></thead><tbody id="rows"></tbody></table></div>
+        <div class="empty" id="empty" hidden><strong>Nenhum registro encontrado</strong><p>Tente outro termo ou limpe os filtros para consultar toda a base.</p><button id="empty-reset">Limpar filtros</button></div>
+        <footer class="pagination"><span id="page-summary" aria-live="polite"></span><div><label class="page-size">Por página <select id="page-size"><option>8</option><option>15</option><option>30</option></select></label><button id="previous" aria-label="Página anterior">‹</button><span id="page-number"></span><button id="next" aria-label="Próxima página">›</button></div></footer>
+      </section>
+      <div class="source-note" hidden><span aria-hidden="true">ⓘ</span><p id="source-note"></p></div>
+      <footer class="page-footer"><span>CERRADO EM LISTA</span><span>Consulta aos dados fornecidos · Sem atualização automática</span></footer>
+    </main>
+  </div>
+  <dialog id="detail" aria-labelledby="detail-title"><div class="dialog-heading"><span class="eyebrow">DETALHES DO REGISTRO</span><button id="close-detail" aria-label="Fechar detalhes">×</button></div><h2 id="detail-title"></h2><p id="detail-source"></p><dl id="detail-fields"></dl><p class="dialog-note">Campos descritivos da base original. Geometria não exibida nesta consulta.</p></dialog>
+  <noscript>Ative o JavaScript para consultar os registros e utilizar os filtros.</noscript>
+</body>
+</html>
